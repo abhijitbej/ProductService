@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -22,12 +24,12 @@ public class FakeStoreClient {
     private String fakeStoreUrl;
     private String pathForProducts;
     private final String specificProductUrl;
-
     private final String genericProductUrl;
 
     FakeStoreClient(RestTemplateBuilder restTemplateBuilder,
                     @Value("${fakestore.api.url}") String fakeStoreUrl,
                     @Value("${fakestore.api.paths.products}") String pathForProducts) {
+        this.fakeStoreUrl = fakeStoreUrl;
         this.restTemplateBuilder = restTemplateBuilder;
         this.genericProductUrl = fakeStoreUrl + pathForProducts;
         this.specificProductUrl = fakeStoreUrl + pathForProducts + "/{id}";
@@ -83,7 +85,13 @@ public class FakeStoreClient {
         return responseEntity.getBody();
     }
 
-    public void updateProductById() {
+    public void updateProductById(GenericProductDto genericProductDto) {
+        WebClient webClient = WebClient.builder().baseUrl(fakeStoreUrl).build();
+        Mono<FakeStoreProductDto> objectMono = webClient.put()
+                .uri("/products/{id}", genericProductDto.getId())
+                .body(genericProductDto, FakeStoreProductDto.class)
+                .retrieve()
+                .bodyToMono(FakeStoreProductDto.class);
         //
     }
 }
