@@ -8,7 +8,10 @@ import com.productservice.productservice.repositories.OrderRepository;
 import com.productservice.productservice.repositories.PriceRepository;
 import com.productservice.productservice.repositories.CategoryRepository;
 import com.productservice.productservice.repositories.ProductRepository;
-import org.aspectj.weaver.ast.Or;
+
+import com.productservice.productservice.inheritancerelations.joinedtable.*;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
