@@ -3,8 +3,8 @@ package com.productservice.productservice.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.productservice.productservice.dtos.GenericProductDto;
 import com.productservice.productservice.services.ProductService;
-import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -27,10 +27,10 @@ public class ProductControllerWebMvcTest {
     @MockBean
     private ProductService productService;
 
-    @Inject
+    @Autowired
     private MockMvc mockMvc;
 
-    @Inject
+    @Autowired
     private ObjectMapper objectMapper;
 
 
