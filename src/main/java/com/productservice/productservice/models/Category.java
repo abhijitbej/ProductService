@@ -16,10 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category extends BaseModel {
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(fetch = jakarta.persistence.FetchType.EAGER, mappedBy = "category")
+    //@OneToMany(fetch = jakarta.persistence.FetchType.EAGER, mappedBy = "category")
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 }
 
